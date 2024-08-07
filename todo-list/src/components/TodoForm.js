@@ -14,15 +14,20 @@ function TodoForm({ addTodo }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="할 일을 입력해주세요"
-      />
-      <button type="submit">추가</button>
-    </form>
+    <div className='main_form'>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="뭘 해야 하더라?"
+        />
+        <button type="submit">
+          <img src={process.env.PUBLIC_URL + '/add.png'} alt='추가'/>
+        </button>
+      </form>
+    </div>
+    
   );
 }
 

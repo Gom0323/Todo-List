@@ -2,12 +2,21 @@ import React from 'react';
 
 function TodoItem({ todo, toggleTodo, deleteTodo }) {
   return (
-    <li style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-      {todo.text}
-      <button onClick={() => toggleTodo(todo.id)}>
-        {todo.completed ? '미완료' : '완료'}
+    <li>
+      <label className="checkbox-container">
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => toggleTodo(todo.id)}
+        />
+        <span className="checkmark"></span>
+      </label>
+      <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+        {todo.text}
+      </span>
+      <button onClick={() => deleteTodo(todo.id)}>
+        <img src={process.env.PUBLIC_URL + '/Delete.png'} alt='삭제' />
       </button>
-      <button onClick={() => deleteTodo(todo.id)}>삭제</button>
     </li>
   );
 }
