@@ -1,0 +1,162 @@
+.app {
+  width: 600px;
+  height: auto;
+  margin: 50px auto;
+  border: 1px solid black;
+  position: relative;
+}
+
+.app h1 {
+  font-size: 40px;
+  text-align: center;
+  margin: 10px 0 35px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.calendar-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 40px; /* 모달의 크기 증가 */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.calendar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.react-calendar__tile--now {
+  background: #6dceb7 !important; /* 오늘 날짜 색상 변경 */
+}
+
+.react-calendar__month-view__days__day.sunday {
+  color: red !important; /* 일요일 색상 변경 */
+}
+
+
+.main_form form {
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.main_form input {
+  width: 500px;
+  height: 50px;
+  padding: 0;
+  border-radius: 5px;
+}
+.main_form button {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 5px;
+  background: #fff;
+}
+
+
+.main_list {
+  padding: 10px 0;
+}
+.main_list button {
+  padding: 0;
+  width: 50px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+/* 커스텀 체크박스 스타일 */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin: 0 10px;
+  transition: background-color 0.3s;
+}
+
+.checkbox-container input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #4CAF50; /* 체크된 상태의 색상 */
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* 체크 표시 스타일 */
+.checkbox-container input[type="checkbox"]:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 17px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.main_list>ul {
+  padding: 0;
+}
+.main_list>ul>li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  height: 50px;
+  margin: 10px 0 0 0;
+  font-size: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.main_list button {
+  width: 50px;
+  height: 50px;
+  margin: 0 10px ;
+}
