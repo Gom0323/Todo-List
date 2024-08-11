@@ -22,7 +22,6 @@ connection.connect((err) => {
     console.log('Connected to MySQL database');
 });
 
-// Get all todos for a specific date
 app.get('/todos/:date', (req, res) => {
     const { date } = req.params;
     connection.query('SELECT * FROM todos WHERE created_at = ?', [date], (err, results) => {
@@ -31,17 +30,15 @@ app.get('/todos/:date', (req, res) => {
     });
 });
 
-// Add a new todo
 app.post('/todos', (req, res) => {
-    const { text } = req.body;
-    const todo = { text, completed: false, created_at: new Date() };
+    const { text, created_at } = req.body;
+    const todo = { text, completed: false, created_at };
     connection.query('INSERT INTO todos SET ?', todo, (err, results) => {
         if (err) throw err;
         res.json({ id: results.insertId, ...todo });
     });
 });
 
-// Update a todo
 app.put('/todos/:id', (req, res) => {
     const { id } = req.params;
     const { completed } = req.body;
@@ -51,7 +48,6 @@ app.put('/todos/:id', (req, res) => {
     });
 });
 
-// Delete a todo
 app.delete('/todos/:id', (req, res) => {
     const { id } = req.params;
     connection.query('DELETE FROM todos WHERE id = ?', [id], (err) => {

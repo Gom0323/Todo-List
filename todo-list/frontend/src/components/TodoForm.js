@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 
 function TodoForm({ addTodo }) {
-  const [input, setInput] = useState('');
+  const [text, setText] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim()) {
-      addTodo(input);
-      setInput('');
-    }
+    if (!text) return;
+    addTodo(text);
+    setText('');
   };
 
   return (
-    <div className='main_form'>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="뭘 해야 하더라?"
-        />
-        <button type="submit">
-          <img src={process.env.PUBLIC_URL + '/add.png'} alt='추가'/>
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className='form_wrap'>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="할 일을 입력하세요..."
+      />
+      <button type="submit">추가</button>
+    </form>
   );
 }
 
