@@ -5,6 +5,7 @@ import {
   startOfWeek,
   addDays,
   format,
+  isSameDay,
 } from "date-fns";
 
 function generateCalendar(year, month) {
@@ -27,8 +28,9 @@ function generateCalendar(year, month) {
   return daysInCalendar;
 }
 
-function CustomCalendar({ onDateSelect }) {
+function CustomCalendar({ todos = [], onDateSelect }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const today = new Date();
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -47,6 +49,28 @@ function CustomCalendar({ onDateSelect }) {
     onDateSelect(date);
   };
 
+  // 할 일을 모두 마친 날짜인지 확인
+  const isAllTodosCompleted = (date) => {
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    const todosForDate = todos.filter(todo => {
+      const todoDate = format(new Date(todo.created_at), 'yyyy-MM-dd');
+      return todoDate === formattedDate;
+    });
+  
+    return todosForDate.length > 0 && todosForDate.every(todo => todo.completed);
+  };
+  
+  const hasTodos = (date) => {
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    const todosExist = todos.some(todo => {
+      const todoDate = format(new Date(todo.created_at), 'yyyy-MM-dd');
+      return todoDate === formattedDate;
+    });
+  
+    // console.log(`Checking if todos exist for ${formattedDate}:`, todosExist); // 디버깅 메시지 추가
+    return todosExist;
+  };
+
   return (
     <div className="calendar">
       <div className="month">
@@ -55,13 +79,7 @@ function CustomCalendar({ onDateSelect }) {
         <button onClick={handleNextMonth}>다음</button>
       </div>
       <div className="day">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: "30px",
-          }}
-        >
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "30px" }}>
           {["일", "월", "화", "수", "목", "금", "토"].map((dayName, index) => (
             <div
               key={index}
@@ -69,12 +87,7 @@ function CustomCalendar({ onDateSelect }) {
                 flex: 0.1,
                 textAlign: "center",
                 padding: "10px",
-                color:
-                  dayName === "일"
-                    ? "red"
-                    : dayName === "토"
-                    ? "blue"
-                    : "black",
+                color: dayName === "일" ? "red" : dayName === "토" ? "blue" : "black",
               }}
             >
               {dayName}
@@ -84,8 +97,11 @@ function CustomCalendar({ onDateSelect }) {
         {daysInCalendar.map((week, i) => (
           <div key={i} style={{ display: "flex", justifyContent: "center" }}>
             {week.map((day, j) => {
-              const isCurrentMonth =
-                format(day, "M") === format(currentDate, "M");
+              const isCurrentMonth = format(day, "M") === format(currentDate, "M");
+              const isToday = isSameDay(day, today);
+              const allTodosCompleted = isAllTodosCompleted(day); // 모든 할 일이 완료된 날
+              const todosExist = hasTodos(day); // 할 일이 존재하는 날
+
               return (
                 <div
                   key={j}
@@ -94,11 +110,13 @@ function CustomCalendar({ onDateSelect }) {
                     textAlign: "center",
                     padding: "10px",
                     cursor: "pointer",
-                    color: isCurrentMonth ? "black" : "#ddd",
+                    backgroundColor: allTodosCompleted ? '#39d353' : isToday ? 'pink' : '', // 할 일을 모두 마친 날짜의 배경색과 오늘 날짜의 배경색 설정
+                    border: todosExist && !allTodosCompleted ? '0.5px solid #000' : 'none', // 할 일이 있는 날짜에만 테두리 추가, 할 일을 모두 마친 경우 테두리 제거
+                    color: isCurrentMonth ? "black" : "#ddd",  // 현재 월에 속하지 않는 날짜는 회색으로 표시
                   }}
                   onClick={() => handleDateClick(day)}
                 >
-                  {format(day, "d")}
+                  {format(day, "d")}  {/* 날짜 숫자 표시 */}
                 </div>
               );
             })}

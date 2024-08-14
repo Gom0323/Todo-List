@@ -14,7 +14,6 @@ function TodoItem({ todo, toggleTodo, deleteTodo }) {
       <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
         {todo.text}
       </span>
-      <span>{todo.due_date} {todo.due_time}</span>
       <button onClick={() => deleteTodo(todo.id)}>
         <img src={process.env.PUBLIC_URL + '/Delete.png'} alt='삭제' />
       </button>

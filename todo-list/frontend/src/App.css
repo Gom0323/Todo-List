@@ -1,6 +1,6 @@
 .app {
   width: 1920px;
-  height: auto;
+  min-height: 500px;
   margin: 50px auto;
   border: 1px solid black;
   position: relative;
