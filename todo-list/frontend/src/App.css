@@ -4,6 +4,7 @@
   margin: 50px auto;
   border: 1px solid black;
   position: relative;
+  border-radius: 10px;
 }
 
 .app h1 {
@@ -26,6 +27,7 @@
 }
 
 .todo-section form, .todo-section ul, .todo-section p {
+  margin-top: 15px;
   margin-bottom: 20px;
 }
 
@@ -175,7 +177,7 @@
   gap: 20px;
   align-items: center;
   height: 50px;
-  margin: 10px 0 0 0;
+  margin: 10px 30px;
   font-size: 20px;
   border-bottom: 1px solid #000;
 }

@@ -72,7 +72,7 @@ function CustomCalendar({ todos = [], onDateSelect }) {
   };
 
   return (
-    <div className="calendar">
+    <div className="calendar" style={{width: '500px', height:'360px', margin: '15px', padding: '15px', border: '1px solid black', borderRadius: '10px'}}>
       <div className="month">
         <button onClick={handlePrevMonth}>이전</button>
         <span>{format(currentDate, "yyyy년 M월")}</span>
